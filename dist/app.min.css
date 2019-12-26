@@ -1,0 +1,33 @@
+#mydiv {
+    width:100px;
+    height:100px;
+    background: red;
+    border:1px solid var(--mainColor);
+}
+:root{
+    --mainColor:blue
+}
+* {
+    padding:0
+}
+.boder-red {   
+    border:1px solid red
+}
+.div1{
+    background:red;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+.img1 {
+    background-image:url(assets/images/sprite.57ab.png);
+    background-position:0px -303px;
+    background-size:750px 560px
+}
+
+.img2 {
+    background-image:url(assets/images/sprite.57ab.png);
+    background-position:0px 0px;
+    background-size:750px 560px
+}
+

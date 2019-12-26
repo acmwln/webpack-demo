@@ -1,0 +1,28 @@
+* {
+    padding:0
+}
+:global .boder-red {   
+    border:1px solid red
+}
+.div1{
+    composes:mydiv from "./test2.css";
+    background:yellow;
+    display: flex;
+}
+.img1 {
+    background:url(assets/images/applogo2.70b5.png)
+}
+
+.img2 {
+    background:url(assets/images/header_bg.5d78.jpg)
+}
+
+#mydiv {
+    width:100px;
+    height:100px;
+    background: red;
+    border:4px solid var(--mainColor);
+}
+:root{
+    --mainColor:blue
+}

@@ -1,0 +1,18 @@
+* {
+    padding:0
+}
+:global .boder-red {   
+    border:1px solid red
+}
+.div1{
+    composes:mydiv from "./test2.css";
+    background:yellow;
+    display: flex;
+}
+.img1 {
+    background:url('../images/applogo2.png')
+}
+
+.img2 {
+    background:url('../images/header_bg.jpg')
+}

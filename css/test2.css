@@ -1,0 +1,9 @@
+#mydiv {
+    width:100px;
+    height:100px;
+    background: red;
+    border:4px solid var(--mainColor);
+}
+:root{
+    --mainColor:blue
+}
