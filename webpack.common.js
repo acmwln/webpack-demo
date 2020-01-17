@@ -4,19 +4,16 @@ const htmlwebpackplugin = require('html-webpack-plugin')   //提取html
 const dev = require('./webpack.dev')
 const prod = require('./webpack.prod')
 const merge = require('webpack-merge')
-//express + webpack-dev-middleware+webpack-hot-middleware  express+中间件模拟webpack-dev-server热更新服务  
-//暴漏出一个方法接受一个环境变量
+
 module.exports=env=>{
-    //配置对象
-    //webpack-merge合并规则:如果没有则加上，如果有则顶掉
+
     function getcssoptions(env){
         if(env==='production'){
-            //生产模式loader的配置
             return {
                 test:/\.css$/,
                 use:[
                     {
-                        loader:minicss.loader,   //生产模式需要提取为一个单独的css文件
+                        loader:minicss.loader,  
                     },
                     {
                         loader:'css-loader'
@@ -24,7 +21,6 @@ module.exports=env=>{
                 ],
             }
         }else{
-            //开发模式如果你把css提取为一个单独的文件，那么会使得css无法live-reload和热更新
             return {
                 test:/\.css$/,
                 use:[
@@ -62,9 +58,9 @@ module.exports=env=>{
                         {
                             loader:'url-loader',//file-loader   //并不局限图片，mp3,mp4等各种文件的处理都可以用file-loader处理
                             options:{
-                                name:"[name].[hash:4].[ext]",   //[hash:4]:hash 截取4位   [ext]:后缀
-                                outputPath:"assets/images", //打包后的路径
-                                publicPath:"assets/images",     //统一把路径做个更换,不用担心路径弄错的问题
+                                name:"[name].[hash:4].[ext]",   
+                                outputPath:"assets/images", 
+                                publicPath:"assets/images",     
                                 limit:5000   //小于5000(5kb)的图片大小都会变成base64(url-loader独有)
                             }
                         },
@@ -73,7 +69,7 @@ module.exports=env=>{
                             options:{
                                 plugins:[
                                     require('imagemin-pngquant')({
-                                        speed:2   //1-11,压缩体积,数字越大压缩越低,质量越好
+                                        speed:2   //1-11
                                     }),
                                     // require('imagemin-mozjpeg')({
                                     //     quality:10   //1-100

@@ -1,12 +1,14 @@
 * {
-    padding:0
+    padding:0;
+    
 }
+/* 全局类 */
 :global .boder-red {   
     border:1px solid red
 }
-.div1{
+:local .div1{
     composes:mydiv from "./test2.css";
-    background:yellow;
+    background-color:yellow;
     display: flex;
 }
 .img1 {
@@ -17,7 +19,7 @@
     background:url(assets/images/header_bg.5d78.jpg)
 }
 
-#mydiv {
+.mydiv {
     width:100px;
     height:100px;
     background: red;

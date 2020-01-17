@@ -1,0 +1,43 @@
+
+> webpack-demo@1.0.0 start /Users/wln/PrivateProject/webpack-demo
+> npx webpack
+
+Warning: postcss-cssnext found a duplicate plugin ('autoprefixer') in your postcss plugins. This might be inefficient. You should remove 'autoprefixer' from your postcss plugin list since it's already included by postcss-cssnext.
+Note: If, for a really specific reason, postcss-cssnext warnings are irrelevant for your use case, and you really know what you are doing, you can disable this warnings by setting  'warnForDuplicates' option of postcss-cssnext to 'false'.
+Hash: 9c98c4cedd3cc58733b6
+Version: webpack 4.41.5
+Time: 4887ms
+Built at: 2020-01-16 16:08:06
+                           Asset       Size  Chunks             Chunk Names
+                        ./app.js    486 KiB     app  [emitted]  app
+                       ./app2.js   3.76 KiB    app2  [emitted]  app2
+                     app.min.css  599 bytes     app  [emitted]  app
+assets/images/header_bg.5d78.jpg   23.9 KiB          [emitted]  
+   assets/images/sprite.57ab.png   94.8 KiB          [emitted]  
+                      index.html  366 bytes          [emitted]  
+                     index2.html  325 bytes          [emitted]  
+Entrypoint app = app.min.css ./app.js
+Entrypoint app2 = ./app2.js
+[0] multi ./app.js babel-polyfill 40 bytes {app} [built]
+[./app.js] 1.74 KiB {app} [built]
+[./app2.js] 23 bytes {app2} [built]
+[./css/test.css] 107 bytes {app} [built]
+[./images/header_bg.jpg] 52 bytes {app} [built]
+[./node_modules/webpack/buildin/global.js] delegated ./webpack-demo/node_modules/webpack/buildin/global.js from dll-reference vendor_library 42 bytes {app} [built]
+[./test.ts] 27 bytes {app} [built]
+[dll-reference vendor_library] external "vendor_library" 42 bytes {app} [built]
+    + 333 hidden modules
+Child html-webpack-plugin for "index.html":
+     1 asset
+    Entrypoint undefined = index.html
+    [./node_modules/html-webpack-plugin/lib/loader.js!./index.html] 309 bytes {0} [built]
+Child html-webpack-plugin for "index2.html":
+     1 asset
+    Entrypoint undefined = index2.html
+    [./node_modules/html-webpack-plugin/lib/loader.js!./index.html] 309 bytes {0} [built]
+Child mini-css-extract-plugin node_modules/css-loader/dist/cjs.js??ref--8-1!node_modules/postcss-loader/src/index.js??postcss!css/test.css:
+    Entrypoint mini-css-extract-plugin = *
+    [./node_modules/css-loader/dist/cjs.js?!./css/test2.css] ./node_modules/css-loader/dist/cjs.js??ref--8-1!./css/test2.css 415 bytes {mini-css-extract-plugin} [built]
+    [./node_modules/css-loader/dist/cjs.js?!./node_modules/postcss-loader/src/index.js?!./css/test.css] ./node_modules/css-loader/dist/cjs.js??ref--8-1!./node_modules/postcss-loader/src??postcss!./css/test.css 1.26 KiB {mini-css-extract-plugin} [built]
+    [./sprite.png] 49 bytes {mini-css-extract-plugin} [built]
+        + 2 hidden modules

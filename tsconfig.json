@@ -1,7 +1,7 @@
 {
-    "compilerOptions":{   //编译选项
-        "module":"commonjs",   //编辑目标
-        "target":"ES5"
+    "compilerOptions":{   
+        "module":"commonjs",   
+        "target":"ES5"   
     },
-    "exclude":["./node_modules"] //除了 哪些目录是不编译的
+    "exclude":["./node_modules"] 
 }

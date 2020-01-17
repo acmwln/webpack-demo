@@ -15,10 +15,10 @@ import mb from "./module/moduleb.js"
 
  
 $.ajax({
-	url:"/ctrip/",
+	url:"/webapp/qd",
 	type:'get',
 	success:function(res){
-		console.log(res);
+		console.log('1111',res);
 	}
 });
 
@@ -29,6 +29,7 @@ var i=0;
  	i++;
   document.getElementById('mydiv').innerHTML=i+"a";	
 },2000)
+
 
 if(module.hot){
     module.hot.accept()

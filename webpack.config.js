@@ -2,7 +2,14 @@ const extracss = require('extract-text-webpack-plugin') //提取css  webpack4版
 const minicss = require('mini-css-extract-plugin')   //提取css 有hash
 const htmlwebpackplugin = require('html-webpack-plugin')   //提取html
 const webpackSpriteSmith = require('webpack-spritesmith')//生成雪碧图
+const webpackbuild = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const path = require('path')
+const webpack = require('webpack');
+
+const HappyPack = require('happypack')
+const os = require("os")   
+const happyThreadPool = HappyPack.ThreadPool({size:os.cpus().length})    //线程池
+
 module.exports = {
     mode:'development',
     entry:{
@@ -11,18 +18,19 @@ module.exports = {
     },//['./app.js','./app2.js'],
     output:{
         filename:'./[name].js', 
-        // publicPath:"0000"     //所有的路径都可以通过publicPath去解决,但是要和js,css路径相匹配
+        // publicPath:"0000"    
     },
     module:{
         rules:[
             {
                 test:/\.js$/,
                 use:{
-                    loader:"babel-loader",
-                    options:{
-                        //.babelrc里的配置
-                    }
-                }
+                    loader:'happypack/loader?id=happybabel',//"babel-loader",
+                    // options:{    
+                    //     //.babelrc里的配置
+                    // }
+                },
+                exclude: /node_modules/
             },
             {
                 test:/\.tsx?$/,
@@ -70,56 +78,56 @@ module.exports = {
                 test:/\.css$/,
                 use:[
                     {
-                        loader:minicss.loader //用minicss的loader代替extractcss fallback的style-loader
+                        loader:minicss.loader 
                     },
                     {
                         loader:"css-loader",
                         options:{
-                            // modules: true, //webpack4之前是modules:true
+                            // modules: true, 
                             // localIdentName:'[local]' 
                             modules:{
-                                localIdentName:'[local]'    //webpack3之后是modules:{} 
+                                localIdentName:'[local]'    
                             },  //模块化写css
                             
                         }
                     },
                     {
-                        loader:"postcss-loader",  //可以提供一系列的插件实现css的功能，eg 1.自动加前缀 2.postcss-cssnext(下一代css) 3.雪碧图
+                        loader:"postcss-loader",  
                         options:{
                             ident:'postcss',
                             plugins:[
                                 require('autoprefixer')(),
                                 require('postcss-cssnext')(),
-                                require('postcss-sprites')()   //利用postcss插件生成雪碧图
-                                // 小技巧:把postcss的前缀插件和babel编译的target一致可以放到package.json里一起生效 
+                                require('postcss-sprites')()   
+                                
                             ]
                         }
                     }
                 ]
                 /*use:extracss.extract({    //利用插件提取css
                     fallback:{
-                        loader:'style-loader',
+                        loader:'style-loader',   
                     },
                     use:[
                         {
                             loader:"css-loader",
                             options:{
-                                // modules: true, //webpack4之前是modules:true
+                                // modules: true, 
                                 // localIdentName:'[local]' 
                                 modules:{
-                                    localIdentName:'[local]'    //webpack3之后是modules:{} 
+                                    localIdentName:'[local]'   
                                 },  //模块化写css
                                 
                             }
                         },
                         {
-                            loader:"postcss-loader",  //可以提供一系列的插件实现css的功能，eg 1.自动加前缀 2.postcss-cssnext(下一代css) 3.雪碧图
+                            loader:"postcss-loader", 
                             options:{
-                                ident:'postcss',    //指名给postcss用的
+                                ident:'postcss',   
                                 plugins:[
                                     require('autoprefixer')(),
                                     require('postcss-cssnext')(),
-                                    // 小技巧:把postcss的前缀和babel编译的target一致可以放到package.json里一起生效 
+                                   
                                 ]
                             }
                         }
@@ -131,23 +139,33 @@ module.exports = {
             
         ]
     },
-    plugins:[   //所有的插件都要new一下
+    plugins:[   
         // new extracss({
         //     filename:'[name].min.css'  //只有name没有hash
         // })
+        new webpackbuild(),
+        new HappyPack({
+            id: 'happybabel',
+            loaders: ['babel-loader?cacheDirectory=true'],  
+            threadPool: happyThreadPool    //共享进程池
+        }),
+        new webpack.DllReferencePlugin({
+            context:path.join(__dirname,'..'),
+            manifest:require('./dll/vendor-manifest.json')
+        }),
         new minicss({
             filename:'[name].min.css'  //有name有hash
         }),
-        //多页面就new多个htmlwebpackplugin模板,chunks对应打包进入相应的js
+        
         new htmlwebpackplugin({
-            template:"index.html",  //模板
-            filename:"index.html",   //打包后的html文件
-            chunks:['app']   //每个模板对应的js
+            template:"index.html",  
+            filename:"index.html",   
+            chunks:['app']   
 
         }),
         new htmlwebpackplugin({
-            template:"index.html",  //模板
-            filename:"index2.html",   //打包后的html文件
+            template:"index.html",  
+            filename:"index2.html",  
             chunks:['app2']
         }),
         //雪碧图
@@ -155,7 +173,7 @@ module.exports = {
             src:{
                 //图片来源文件夹
                 cwd:path.join(__dirname,'./images'),
-                glob:"*.jpg"//处理images下jpg类型的图片
+                glob:"*.jpg"
 
             },
             target:{
@@ -167,6 +185,8 @@ module.exports = {
             apiOptions:{
                 cssImageRef:"./sprites/sprite.png"
             }
-        })
+        }) 
+        
     ]
 }
+
