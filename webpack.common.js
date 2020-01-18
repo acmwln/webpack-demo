@@ -4,6 +4,7 @@ const htmlwebpackplugin = require('html-webpack-plugin')   //提取html
 const dev = require('./webpack.dev')
 const prod = require('./webpack.prod')
 const merge = require('webpack-merge')
+const utils =require('./utils')
 
 module.exports=env=>{
 
@@ -35,9 +36,7 @@ module.exports=env=>{
         }
     }
     var common = {
-        entry:{
-            index:'./src/index.js'
-        },
+        entry:utils.entries(),//自定义一个方法实现多入口配置eg:{index1:'./src/index1.js',index2:'./src/index2.js'},
         output:{
             filename:'[name].bundle.js'
         },

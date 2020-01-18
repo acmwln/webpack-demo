@@ -5,7 +5,7 @@ module.exports={
     mode:"development",   //webpack4 进行压缩和tree-shaking   webpack3:必须每个都需要new一下 Ugli
     devtool:'cheap-module-source-map',
     devServer:{
-        port:9001,
+        port:9002,
         inline:true, //服务的开启模式,默认是true
         hot:true,
         hotOnly:true, 
